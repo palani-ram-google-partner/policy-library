@@ -1,0 +1,23 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPIAMRestrictComboRolesConstraintV1
+metadata:
+  name: restrict_combo_roles
+  annotations:
+    description: CIS-1.1 - 1.08 Ensure that Separation of duties is enforced while assigning service account related roles to users
+spec:
+  severity: high
+  match:
+    target: # {"$ref":"#/definitions/io.k8s.cli.setters.target"}
+    - "organizations/**"
+  parameters:
+    assetTypes:
+    - "cloudresourcemanager.googleapis.com/Organization"
+    - "cloudresourcemanager.googleapis.com/Folder"
+    - "cloudresourcemanager.googleapis.com/Project"
+    role: "roles/iam.serviceAccountAdmin"
+    combo_roles:
+    - "roles/iam.serviceAccountUser"
+    members:
+    - "user:*"
+    - "group:*"
+

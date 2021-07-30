@@ -1,0 +1,83 @@
+[
+  {
+    "name": "//bigquery.googleapis.com/projects/prj-dev-palani-ram/datasets/foo",
+    "asset_type": "bigquery.googleapis.com/Dataset",
+    "ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+    "resource": {
+      "version": "v2",
+      "discovery_document_uri": "https://www.googleapis.com/discovery/v1/apis/bigquery/v2/rest",
+      "discovery_name": "Dataset",
+      "parent": "//cloudresourcemanager.googleapis.com/projects/prj-dev-palani-ram",
+      "data": {
+        "access": [
+          {
+            "role": "OWNER",
+            "specialGroup": "projectOwners"
+          }
+        ],
+        "datasetReference": {
+          "datasetId": "foo"
+        },
+        "defaultTableExpirationMs": 3600000,
+        "description": "some description",
+        "friendlyName": "foo",
+        "labels": {
+          "billable": "true",
+          "env": "dev",
+          "owner": "joedoe"
+        },
+        "location": "US"
+      }
+    }
+  },
+  {
+    "name": "//cloudkms.googleapis.com/placeholder-BpLnfgDs",
+    "asset_type": "cloudkms.googleapis.com/CryptoKey",
+    "ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+    "resource": {
+      "version": "v1",
+      "discovery_document_uri": "https://www.googleapis.com/discovery/v1/apis/kms/v1/rest",
+      "discovery_name": "CryptoKey",
+      "parent": "//cloudresourcemanager.googleapis.com/projects/prj-dev-palani-ram",
+      "data": {
+        "nextRotationTime": "2024-09-15T07:32:23.905591Z",
+        "purpose": "ENCRYPT_DECRYPT",
+        "rotationPeriod": "99999910s",
+        "versionTemplate": {
+          "algorithm": "GOOGLE_SYMMETRIC_ENCRYPTION",
+          "protectionLevel": "SOFTWARE"
+        }
+      }
+    }
+  },
+  {
+    "name": "//cloudkms.googleapis.com/projects/prj-dev-palani-ram/locations/global/keyRings/kms-keyring-dev/cryptoKeys/kms-key-dev",
+    "asset_type": "cloudkms.googleapis.com/CryptoKey",
+    "ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+    "iam_policy": {
+      "bindings": [
+        {
+          "role": "roles/cloudkms.admin",
+          "members": [
+            "group:test-group@gmail.com",
+            "serviceAccount:srv-account@world.com",
+            "user:palani.ram@googlecloud.corp-partner.google.com"
+          ]
+        },
+        {
+          "role": "roles/cloudkms.cryptoKeyEncrypter",
+          "members": [
+            "serviceAccount:srv-account@world.com"
+          ]
+        },
+        {
+          "role": "roles/cloudkms.cryptoKeyDecrypter",
+          "members": [
+            "group:test-group@gmail.com",
+            "user:palani.ram@googlecloud.corp-partner.google.com"
+          ]
+        }
+      ]
+    }
+  }
+]

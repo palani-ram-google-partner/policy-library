@@ -1,0 +1,344 @@
+[
+  {
+    "name": "//cloudresourcemanager.googleapis.com/projects/prj-dev-palani-ram",
+    "asset_type": "cloudresourcemanager.googleapis.com/Project",
+    "ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+    "iam_policy": {
+      "bindings": [
+        {
+          "role": "roles/actions.Admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/bigquery.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/browser",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudasset.viewer",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudbuild.builds.builder",
+          "members": [
+            "serviceAccount:927667932961@cloudbuild.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudbuild.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-cloudbuild.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudfunctions.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcf-admin-robot.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudkms.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudkms.cryptoKeyDecrypter",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudkms.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-cloudkms.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudprivatecatalogproducer.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudprivatecatalogproducer.orgAdmin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/cloudsql.admin",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.instanceAdmin",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.networkAdmin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.networkViewer",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.orgSecurityResourceAdmin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.securityAdmin",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/compute.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@compute-system.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/container.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@container-engine-robot.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/containeranalysis.ServiceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@container-analysis.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/containerregistry.ServiceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@containerregistry.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/containerthreatdetection.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-ktd-control.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/editor",
+          "members": [
+            "serviceAccount:927667932961-compute@developer.gserviceaccount.com",
+            "serviceAccount:927667932961@cloudservices.gserviceaccount.com",
+            "serviceAccount:prj-dev-palani-ram@appspot.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/iam.securityAdmin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/iam.securityReviewer",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/iam.serviceAccountAdmin",
+          "members": [
+            "serviceAccount:sa-first@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:sa-second@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "user:palani.ram@googlecloud.corp-partner.google.com"
+          ]
+        },
+        {
+          "role": "roles/iam.serviceAccountUser",
+          "members": [
+            "serviceAccount:sa-first@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:sa-second@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/logging.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/logging.configWriter",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/monitoring.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/owner",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "user:admin@gsecurity.net",
+            "user:palani.ram@googlecloud.corp-partner.google.com"
+          ]
+        },
+        {
+          "role": "roles/pubsub.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-pubsub.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/resourcemanager.organizationAdmin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/securitycenter.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/securitycenter.findingsEditor",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/securitycenter.notificationConfigEditor",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/servicemanagement.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/serviceusage.serviceUsageAdmin",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/serviceusage.serviceUsageViewer",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/stackdriver.accounts.editor",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/storage.admin",
+          "members": [
+            "serviceAccount:cloud-foundation-forseti-15728@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/storage.objectViewer",
+          "members": [
+            "serviceAccount:sa-first@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:sa-second@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/threatdetection.editor",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/viewer",
+          "members": [
+            "serviceAccount:sa-first@prj-dev-palani-ram.iam.gserviceaccount.com",
+            "serviceAccount:sa-second@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/vpcaccess.admin",
+          "members": [
+            "serviceAccount:srv-acct-admin@prj-dev-palani-ram.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/vpcaccess.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-vpcaccess.iam.gserviceaccount.com"
+          ]
+        },
+        {
+          "role": "roles/websecurityscanner.serviceAgent",
+          "members": [
+            "serviceAccount:service-927667932961@gcp-sa-websecurityscanner.iam.gserviceaccount.com"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "//compute.googleapis.com/disk-1",
+    "asset_type": "compute.googleapis.com/Disk",
+    "ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+    "resource": {
+      "version": "v1",
+      "discovery_document_uri": "https://www.googleapis.com/discovery/v1/apis/compute/v1/rest",
+      "discovery_name": "Disk",
+      "parent": "//cloudresourcemanager.googleapis.com/projects/prj-dev-palani-ram",
+      "data": {
+        "labels": {
+          "critical_vm": "true",
+          "name": "pals-critical-disk"
+        },
+        "name": "disk-1",
+        "physicalBlockSizeBytes": 4096,
+        "sizeGb": 500,
+        "sourceImage": "projects/centos-cloud/global/images/centos-8-v20210512",
+        "type": "projects/prj-dev-palani-ram/zones/us-central1-f/diskTypes/pd-standard",
+        "zone": "projects/prj-dev-palani-ram/global/zones/us-central1-f"
+      }
+    }
+  }
+]

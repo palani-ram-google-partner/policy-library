@@ -1,0 +1,22 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPIAMKMSRestrictComboRolesConstraintV1
+metadata:
+  name: restrict_kms_combo_roles
+  annotations:
+    description: CIS-1.1 - 1.11 Ensure that Separation of duties is enforced while assigning KMS related roles to users
+spec:
+  severity: high
+  match:
+    target: # {"$ref":"#/definitions/io.k8s.cli.setters.target"}
+    - "organizations/**"
+  parameters:
+    assetType: "cloudkms.googleapis.com/CryptoKey"
+    role: "roles/cloudkms.admin"
+    combo_roles:
+    - "roles/cloudkms.cryptoKeyEncrypter"
+    - "roles/cloudkms.cryptoKeyDecrypter"
+    - "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+    members:
+    - "user:*"
+    - "group:*"
+

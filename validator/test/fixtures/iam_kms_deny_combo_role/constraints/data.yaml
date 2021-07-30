@@ -1,0 +1,20 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPIAMKMSRestrictComboRolesConstraintV1
+metadata:
+  name: restrict_kms_combo_roles
+  annotations:
+    description:
+spec:
+  severity: high
+  match:
+  parameters:
+    assetType: "cloudkms.googleapis.com/CryptoKey"
+    role: "roles/cloudkms.admin"
+    combo_roles:
+    - "roles/cloudkms.cryptoKeyEncrypter"
+    - "roles/cloudkms.cryptoKeyDecrypter"
+    - "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+    members:
+    - "user:*"
+    - "group:*"
+
