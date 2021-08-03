@@ -1,0 +1,113 @@
+{
+  "backendType": "SECOND_GEN",
+  "connectionName": "prj-dev-palani-ram:us-central1:tf-pg-ha-62380f9c",
+  "databaseVersion": "POSTGRES_13",
+  "etag": "c008085c643a7155955bc2159aaecda17a6b17514ba7ae44a0ba326bb702cf34",
+  "failoverReplica": {
+    "available": true
+  },
+  "gceZone": "us-central1-c",
+  "instanceType": "CLOUD_SQL_INSTANCE",
+  "ipAddresses": [
+    {
+      "ipAddress": "35.232.101.90",
+      "type": "PRIMARY"
+    }
+  ],
+  "kind": "sql#instance",
+  "name": "tf-pg-ha-62380f9c",
+  "project": "prj-dev-palani-ram",
+  "region": "us-central1",
+  "replicaNames": [
+    "tf-pg-ha-62380f9c-replica-test2",
+    "tf-pg-ha-62380f9c-replica-test1",
+    "tf-pg-ha-62380f9c-replica-test0"
+  ],
+  "secondaryGceZone": "us-central1-f",
+  "selfLink": "https://sqladmin.googleapis.com/sql/v1beta4/projects/prj-dev-palani-ram/instances/tf-pg-ha-62380f9c",
+  "serverCaCert": {
+    "cert": "-----BEGIN CERTIFICATE-----\nMIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyRkNGFk\nZjA0Yi03OTQ5LTQzOTEtOTFiYi05NzE2YTZhMjk1MzQxIzAhBgNVBAMTGkdvb2ds\nZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG\nA1UEBhMCVVMwHhcNMjEwNjA4MDgwNzU1WhcNMzEwNjA2MDgwODU1WjB3MS0wKwYD\nVQQuEyRkNGFkZjA0Yi03OTQ5LTQzOTEtOTFiYi05NzE2YTZhMjk1MzQxIzAhBgNV\nBAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs\nIEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB\nAQCzJNZXP7y6Phz2FzVNBCjkTbg2DUIDDltW5x+06X9y5Aw4h9+vjPSytZ0BJy+k\nIN5x26KQdE4oSe/7nZfdmDxlMvxFqE6VPPL70mPYx+tPC0xUwddMoPhsKCHCP6sK\nHiip7DDYsEGrLDo+qWft9ux/Ji89lIOZADo2AQa/vy5gQlVQ7ZlwMZHzS9u0N4qZ\nwp+qsHZ57SgfvusOdH+3q1yRoRzSvDWBPoCRsGL/q/7jODKHcxA++7HqkGIM0p/8\nkPiNRvOAmuVYknC+sIr4wo03zO4xRcKv4B1xd/CcUXr2fx3Od9ULqzMhti/4ASKM\nqFV6KFO5bn1mYHbSSxCRgLxnAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw\nDQYJKoZIhvcNAQELBQADggEBAB4Zkg6V+jFFERKd0H0j7ObinLN9yiydrwIrIf9t\nkjxEplYuU3Xvs6UrQEp1ZAOFyoBY+a8tZzTI4onbnU0ccDDniZ1wZa8YQhVcyrj0\nwu2ugDxNGBYfVjpK6smvH0PzWB7crxVPTB+jB4fLy4sNXQxGDDcRDZImQ5CGutYC\n+lukN9ujQmsT416VErDZaDXfXXg4HcaTS3EhkMSfBg/tgyIOCdkYDmHmQgpPUTeb\npcWm4stNJl+Ww/oHJI7IVgC7G8n/EYi64JdnDf76fg5ZjNmh3/B/MHZyzi3B78GB\nVSuirgD5jbmmgJ3hrzGQOF0ZKPSqUberWmUlu6pkXEK7jww=\n-----END CERTIFICATE-----",
+    "certSerialNumber": "0",
+    "commonName": "C=US,O=Google\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=d4adf04b-7949-4391-91bb-9716a6a29534",
+    "createTime": "2021-06-08T08:07:55.521Z",
+    "expirationTime": "2031-06-06T08:08:55.521Z",
+    "instance": "tf-pg-ha-62380f9c",
+    "kind": "sql#sslCert",
+    "sha1Fingerprint": "0d6745c92f70523ce4e39fc3b79cb3e90f5f06fd"
+  },
+  "serviceAccountEmailAddress": "p927667932961-s4so8a@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+  "settings": {
+    "activationPolicy": "ALWAYS",
+    "availabilityType": "REGIONAL",
+    "backupConfiguration": {
+      "backupRetentionSettings": {
+        "retainedBackups": 7,
+        "retentionUnit": "COUNT"
+      },
+      "enabled": true,
+      "kind": "sql#backupConfiguration",
+      "location": "us",
+      "pointInTimeRecoveryEnabled": false,
+      "replicationLogArchivingEnabled": false,
+      "startTime": "20:55",
+      "transactionLogRetentionDays": 7
+    },
+    "dataDiskSizeGb": "10",
+    "dataDiskType": "PD_SSD",
+    "databaseFlags": [
+      {
+        "name": "autovacuum",
+        "value": "off"
+      },
+      {
+        "name": "log_checkpoints",
+        "value": "on"
+      },
+      {
+        "name": "log_connections",
+        "value": "on"
+      },
+      {
+        "name": "log_disconnections",
+        "value": "on"
+      },
+      {
+        "name": "log_temp_files",
+        "value": "0"
+      }
+    ],
+    "ipConfiguration": {
+      "authorizedNetworks": [
+        {
+          "kind": "sql#aclEntry",
+          "name": "public-cidr",
+          "value": "0.0.0.0/0"
+        }
+      ],
+      "ipv4Enabled": true,
+      "requireSsl": true
+    },
+    "kind": "sql#settings",
+    "locationPreference": {
+      "kind": "sql#locationPreference",
+      "secondaryZone": "us-central1-f",
+      "zone": "us-central1-c"
+    },
+    "maintenanceWindow": {
+      "day": 7,
+      "hour": 11,
+      "kind": "sql#maintenanceWindow",
+      "updateTrack": "stable"
+    },
+    "pricingPlan": "PER_USE",
+    "replicationType": "SYNCHRONOUS",
+    "settingsVersion": "12",
+    "storageAutoResize": true,
+    "storageAutoResizeLimit": "0",
+    "tier": "db-custom-2-13312",
+    "userLabels": {
+      "foo": "bar"
+    }
+  },
+  "state": "RUNNABLE"
+}
