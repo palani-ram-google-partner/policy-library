@@ -23,7 +23,7 @@ import data.validator.test_utils as test_utils
 
 template_name := "GCPResourceValuePatternConstraintV1"
 
-# Helper to lookup a constraint based on its name via metadata, not package
+# Helper to lookup a constraint based on its name via projects, not package
 lookup_constraint[name] = [c] {
 	c := fixture_constraints[_]
 	c.metadata.name = name
