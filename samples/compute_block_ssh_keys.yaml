@@ -17,10 +17,11 @@ kind: GCPComputeBlockSSHKeysConstraintV1
 metadata:
   name: compute_block_ssh_keys
   annotations:
-    description: CIS-1.1 - 4.03 Ensure "Block Project-wide SSH keys" is enabled for VM instances
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.03
+    description: Checks if "Block Project-wide SSH keys" is enabled for VM instances
 spec:
   severity: high
   match:
     gcp:
       target: [ "organization/*" ]
-  parameters: { }
+  parameters: {}

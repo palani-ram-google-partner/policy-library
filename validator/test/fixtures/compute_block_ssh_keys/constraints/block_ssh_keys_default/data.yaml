@@ -15,9 +15,13 @@
 apiVersion: constraints.gatekeeper.sh/v1alpha1
 kind: GCPComputeBlockSSHKeysConstraintV1
 metadata:
-  name: compute-block-ssh-keys-v1
+  name: compute_block_ssh_keys
   annotations:
-    description: Ensure "Block Project-wide SSH keys" is enabled for VM instances
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.03
+    description: Checks if "Block Project-wide SSH keys" is enabled for VM instances
 spec:
   severity: high
-  parameters: { }
+  match:
+    gcp:
+      target: [ "organization/*" ]
+  parameters: {}

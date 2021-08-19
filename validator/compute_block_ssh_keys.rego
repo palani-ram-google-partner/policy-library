@@ -25,13 +25,21 @@ deny[{
 	asset := input.asset
 	asset.asset_type == "compute.googleapis.com/Instance"
 	instance := asset.resource.data
-	metadata_config := lib.get_default(instance, "metadata", {})
+	meta := lib.get_default(instance, "metadata", {"items": []})
 
-	# check if key and values are as expected
-	metadata_config.items[i].key == "block-project-ssh-keys"
-	metadata_config.items[i].value != "true"
+	# check if key is available and values are as expected
+	not metadata_blocks_project_keys(meta)
 
 	message := sprintf("%v Block project-wide SSH keys is not enabled.", [asset.name])
 	ancestry_path = lib.get_default(asset, "ancestry_path", "")
 	metadata := {"ancestry_path": ancestry_path}
+}
+
+# check for projects
+default metadata_blocks_project_keys(meta) = false
+
+metadata_blocks_project_keys(meta) {
+	metadatum := meta.items[_]
+	metadatum.key == "block-project-ssh-keys"
+	metadatum.value == "true"
 }
