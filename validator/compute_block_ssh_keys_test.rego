@@ -26,7 +26,9 @@ import data.test.fixtures.compute_block_ssh_keys.assets.projects as fixture_proj
 import data.test.fixtures.compute_block_ssh_keys.constraints as fixture_constraints
 
 template_name := "GCPComputeBlockSSHKeysConstraintV1"
+
 field_name := "block-project-ssh-keys"
+
 field_values := "true"
 
 #No instances at all
@@ -38,12 +40,12 @@ field_values := "true"
 #### Testing for GCE instances
 
 test_block_ssh_keys_compute_instance_violations {
-	expected_resource_names := {
-        "//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"
-    }
-    test_utils.check_test_violations_count(fixture_compute_instances, [fixture_constraints], template_name, 0)
-#    test_utils.check_test_violations_metadata(fixture_compute_instances, [fixture_constraints], template_name, key["block-project-ssh-keys"], true)
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+
+	test_utils.check_test_violations_count(fixture_compute_instances, [fixture_constraints], template_name, 0)
 }
+
+#    test_utils.check_test_violations_metadata(fixture_compute_instances, [fixture_constraints], template_name, key["block-project-ssh-keys"], true)
 
 #find_violations[violation] {
 #	instance := data.instances[_]
@@ -77,7 +79,6 @@ check_test_violations_metadata(test_assets, test_constraints, test_template, fie
 	resource_names == field_values
 }
 
-
 ###### Testing for projects
 #
 ## Confirm six violations were found for all projects
@@ -92,7 +93,6 @@ check_test_violations_metadata(test_assets, test_constraints, test_template, fie
 #	test_utils.check_test_violations_resources(fixture_projects, [fixture_constraints], template_name, expected_resource_names)
 #	test_utils.check_test_violations_signature(fixture_projects, [fixture_constraints], template_name)
 #}
-
 ## Find all violations on our test cases
 #find_violations[violation] {
 #	instance := data.instances[_]

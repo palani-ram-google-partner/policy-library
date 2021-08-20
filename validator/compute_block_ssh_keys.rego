@@ -22,10 +22,12 @@ deny[{
 	"details": metadata,
 }] {
 	constraint := input.constraint
+	lib.get_constraint_params(constraint, params)
 	asset := input.asset
 	asset.asset_type == "compute.googleapis.com/Instance"
 	instance := asset.resource.data
 	meta := lib.get_default(instance, "metadata", {"items": []})
+	key = "block-project-ssh-keys"
 
 	# check if key is available and values are as expected
 	not metadata_blocks_project_keys(meta)
@@ -35,9 +37,10 @@ deny[{
 	metadata := {"ancestry_path": ancestry_path}
 }
 
-# check for projects
+# All other cases for metadata items are violations
 default metadata_blocks_project_keys(meta) = false
 
+# check for block-project-ssh-keys under metadata items - no violation
 metadata_blocks_project_keys(meta) {
 	metadatum := meta.items[_]
 	metadatum.key == "block-project-ssh-keys"
