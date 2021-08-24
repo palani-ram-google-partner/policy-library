@@ -61,11 +61,7 @@ spec:
         	# check if key is available and values are as expected
         	not metadata_blocks_project_keys(meta)
         
-        	#	message := sprintf("%v Block project-wide SSH keys is not enabled.", [asset.name])
-        	#	ancestry_path = lib.get_default(asset, "ancestry_path", "")
-        	#	metadata := {"ancestry_path": ancestry_path}
-        
-        	message := sprintf("%v's key '%v' is in violation.", [asset.name, key])
+        	message := sprintf("On this resource %v check the required key '%v' is in violation.", [asset.name, key])
         	metadata := {"resource": asset.name, "key_in_violation": key}
         }
         
