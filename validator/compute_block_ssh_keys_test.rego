@@ -19,8 +19,10 @@ import data.validator.gcp.lib as lib
 import data.validator.test_utils as test_utils
 
 # Importing the test data
-import data.test.fixtures.compute_block_ssh_keys.assets.compute.instances as fixture_compute_instances
-import data.test.fixtures.compute_block_ssh_keys.assets.projects as fixture_projects
+import data.test.fixtures.compute_block_ssh_keys.assets.compute.instance_no_violation as fixture_compute_instance_no_violation
+import data.test.fixtures.compute_block_ssh_keys.assets.compute.instance_violation as fixture_compute_instance_violation
+
+#import data.test.fixtures.compute_block_ssh_keys.assets.projects as fixture_projects
 
 # Importing the test constraint
 import data.test.fixtures.compute_block_ssh_keys.constraints as fixture_constraints
@@ -39,11 +41,46 @@ field_values := "true"
 
 #### Testing for GCE instances
 
+#1. No instances at all - need to fix the data.json
+test_block_ssh_keys_compute_instance_no_instances {
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+	test_utils.check_test_violations_count(fixture_compute_instance_no_violation, [fixture_constraints], template_name, 0)
+	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
+}
+
+#2a. One instance with correct key
+test_block_ssh_keys_compute_instance_no_violations {
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+	test_utils.check_test_violations_count(fixture_compute_instance_no_violation, [fixture_constraints], template_name, 0)
+	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
+}
+
+#2b. One instance without correct key
 test_block_ssh_keys_compute_instance_violations {
 	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
-
-	test_utils.check_test_violations_count(fixture_compute_instances, [fixture_constraints], template_name, 0)
+	test_utils.check_test_violations_count(fixture_compute_instance_violation, [fixture_constraints], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
 }
+
+#	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+
+#	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
+#
+#test_enforce_label_compute_instance_violations {
+#	expected_resource_names := {
+#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-labels-8hz5",
+#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-label1-8hz5",
+#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-label2-8hz5",
+#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-with-label1-and-label2-bad-values",
+#	}
+#
+#	test_utils.check_test_violations_count(fixture_compute_instances, [fixture_constraints], template_name, 6)
+#	test_utils.check_test_violations_resources(fixture_compute_instances, [fixture_constraints], template_name, expected_resource_names)
+#	test_utils.check_test_violations_signature(fixture_compute_instances, [fixture_constraints], template_name)
+#}
 
 #    test_utils.check_test_violations_metadata(fixture_compute_instances, [fixture_constraints], template_name, key["block-project-ssh-keys"], true)
 
