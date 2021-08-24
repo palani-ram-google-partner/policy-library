@@ -21,6 +21,7 @@ import data.validator.test_utils as test_utils
 # Importing the test data
 import data.test.fixtures.compute_block_ssh_keys.assets.compute.instance_no_violation as fixture_compute_instance_no_violation
 import data.test.fixtures.compute_block_ssh_keys.assets.compute.instance_violation as fixture_compute_instance_violation
+import data.test.fixtures.compute_block_ssh_keys.assets.compute.no_metadata as fixture_compute_instance_no_metadata
 
 #import data.test.fixtures.compute_block_ssh_keys.assets.projects as fixture_projects
 
@@ -28,10 +29,6 @@ import data.test.fixtures.compute_block_ssh_keys.assets.compute.instance_violati
 import data.test.fixtures.compute_block_ssh_keys.constraints as fixture_constraints
 
 template_name := "GCPComputeBlockSSHKeysConstraintV1"
-
-field_name := "block-project-ssh-keys"
-
-field_values := "true"
 
 #No instances at all
 #One instance with the correct key
@@ -65,57 +62,28 @@ test_block_ssh_keys_compute_instance_violations {
 	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
 }
 
-#	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+#4. An instance without metadata configured at all (metadata_config doesn't exist).
+test_block_ssh_keys_compute_instance_no_metadata {
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+	expected_field_name := "key_in_violation"
+	expected_field_values := {"block-project-ssh-keys"}
+	test_utils.check_test_violations_count(fixture_compute_instance_no_metadata, [fixture_constraints], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_compute_instance_no_metadata, [fixture_constraints], template_name, expected_resource_names)
+	test_utils.check_test_violations_signature(fixture_compute_instance_no_metadata, [fixture_constraints], template_name)
+	test_utils.check_test_violations_metadata(fixture_compute_instance_no_metadata, [fixture_constraints], template_name, expected_field_name, expected_field_values)
+}
 
+#	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
 #	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
 #
-#test_enforce_label_compute_instance_violations {
-#	expected_resource_names := {
-#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-labels-8hz5",
-#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-label1-8hz5",
-#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-missing-label2-8hz5",
-#		"//compute.googleapis.com/projects/vpc-sc-pub-sub-billing-alerts/zones/us-central1-b/instances/invalid-instance-with-label1-and-label2-bad-values",
-#	}
-#
-#	test_utils.check_test_violations_count(fixture_compute_instances, [fixture_constraints], template_name, 6)
-#	test_utils.check_test_violations_resources(fixture_compute_instances, [fixture_constraints], template_name, expected_resource_names)
-#	test_utils.check_test_violations_signature(fixture_compute_instances, [fixture_constraints], template_name)
-#}
-
 #    test_utils.check_test_violations_metadata(fixture_compute_instances, [fixture_constraints], template_name, key["block-project-ssh-keys"], true)
-
-#find_violations[violation] {
-#	instance := data.instances[_]
-#	constraint := data.test_constraints[_]
-#	issues := deny with input.asset as instance
-#		 with input.constraint as constraint
 #
-#	total_issues := count(issues)
-#	violation := issues[_]
+## This is to check for other field names from violations besides resource
+#check_test_violations_metadata(test_assets, test_constraints, test_template, field_name, field_values) {
+#	violations := get_test_violations(test_assets, test_constraints, test_template)
+#	resource_names := {x | x = violations[_].details[field_name]}
+#	resource_names == field_values
 #}
-get_test_violations(test_assets, test_constraints, test_template) = violations {
-	violations := [violation |
-		violations := data.templates.gcp[test_template].deny with input.asset as test_assets[_]
-			 with input.constraint as test_constraints[_]
-
-		violation := violations[_]
-	]
-
-	trace(sprintf("violations %s", [violations]))
-}
-
-check_test_violations_count(test_assets, test_constraints, test_template, expected_count) {
-	violations := get_test_violations(test_assets, test_constraints, test_template)
-	count(violations) == expected_count
-}
-
-# This is to check for other field names from violations besides resource
-check_test_violations_metadata(test_assets, test_constraints, test_template, field_name, field_values) {
-	violations := get_test_violations(test_assets, test_constraints, test_template)
-	resource_names := {x | x = violations[_].details[field_name]}
-	resource_names == field_values
-}
-
 ###### Testing for projects
 #
 ## Confirm six violations were found for all projects
