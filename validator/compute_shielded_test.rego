@@ -29,13 +29,13 @@ import data.test.fixtures.compute_shielded.constraints as fixture_constraints
 
 template_name := "GCPComputeShieldedConstraintV1"
 
-#1. No instances at all - need to fix the data.json
+#1. No instances at all
 test_shielded_compute_no_instances {
 	expected_resource_names := {"//dns.googleapis.com/projects/186783260185/managedZones/correct"}
 	test_utils.check_test_violations_count(fixture_compute_no_instance, [fixture_constraints], template_name, 0)
 }
 
-#2. One instance with correct key
+#2. One instance without violation
 test_shielded_compute_instance_no_violations {
 	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
 	test_utils.check_test_violations_count(fixture_compute_instance_no_violation, [fixture_constraints], template_name, 0)
@@ -43,7 +43,7 @@ test_shielded_compute_instance_no_violations {
 	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
 }
 
-#3. One instance without correct key
+#3. One instance with violation
 test_shielded_compute_instance_violations {
 	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
 	test_utils.check_test_violations_count(fixture_compute_instance_violation, [fixture_constraints], template_name, 1)

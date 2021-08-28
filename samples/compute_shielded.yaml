@@ -18,6 +18,7 @@ metadata:
   name: compute_unshielded_vm
   annotations:
     description: checks if Compute instances are launched with Shielded VM enabled
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.08
 spec:
   severity: high
   match:
