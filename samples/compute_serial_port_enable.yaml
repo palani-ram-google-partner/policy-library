@@ -18,6 +18,7 @@ metadata:
   name:  compute_serial_port_enable
   annotations:
     description: Checks if "Enable connecting to serial ports" is not enabled for VM instances
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.05
 spec:
   severity: high
   match:

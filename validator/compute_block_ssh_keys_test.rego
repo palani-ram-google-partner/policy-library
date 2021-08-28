@@ -31,7 +31,7 @@ template_name := "GCPComputeBlockSSHKeysConstraintV1"
 
 #### Testing for GCE instances
 
-#1. No instances at all - need to fix the data.json
+#1. No instances at all
 test_block_ssh_keys_compute_no_instances {
 	expected_resource_names := {"//dns.googleapis.com/projects/186783260185/managedZones/correct"}
 	test_utils.check_test_violations_count(fixture_compute_no_instance, [fixture_constraints], template_name, 0)
