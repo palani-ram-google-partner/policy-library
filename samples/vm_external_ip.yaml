@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ metadata:
   name: forbid_external_ip
   annotations:
     # This constraint is not certified by CIS.
-    bundles.validator.forsetisecurity.org/cis-v1.1: 4.08
-    description: Checks if Compute Engine instances have public IPs.
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.09
+    description: Checks if Compute Engine instances don't have public IPs.
 spec:
   severity: high
   parameters:

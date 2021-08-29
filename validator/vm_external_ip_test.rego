@@ -1,5 +1,5 @@
 #
-# Copyright 2018 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,151 +16,33 @@
 
 package templates.gcp.GCPComputeExternalIpAccessConstraintV2
 
-import data.test.fixtures.vm_external_ip.assets as fixture_instances
+import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
+
+# Importing the test data
+import data.test.fixtures.vm_external_ip.assets.compute.instance_no_violation as fixture_compute_instance_no_violation
+import data.test.fixtures.vm_external_ip.assets.compute.instance_violation as fixture_compute_instance_violation
+import data.test.fixtures.vm_external_ip.assets.compute.no_instances as fixture_compute_no_instance
+
+#import data.test.fixtures.vm_external_ip.assets as fixture_instances
 import data.test.fixtures.vm_external_ip.constraints as fixture_constraints
 
-# Find all violations on our test cases
-find_violations[violation] {
-	instance := data.instances[_]
-	constraint := data.test_constraints[_]
+template_name := "GCPComputeExternalIpAccessConstraintV2"
 
-	issues := deny with input.asset as instance
-		 with input.constraint as constraint
-
-	total_issues := count(issues)
-
-	violation := issues[_]
+#1. No instances at all
+test_vm_external_ip_compute_no_instances {
+	expected_resource_names := {"//dns.googleapis.com/projects/186783260185/managedZones/correct"}
+	test_utils.check_test_violations_count(fixture_compute_no_instance, [fixture_constraints], template_name, 0)
 }
 
-# Confim no violations with no instances
-test_external_ip_no_instances {
-	found_violations := find_violations with data.instances as []
-
-	count(found_violations) = 0
+#2. One instance without public ip
+test_vm_external_ip_compute_instance_no_violations {
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+	test_utils.check_test_violations_count(fixture_compute_instance_no_violation, [fixture_constraints], template_name, 0)
 }
 
-# Confirm no violations with no constraints
-test_external_ip_no_constraints {
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.constraints as []
-
-	count(found_violations) = 0
-}
-
-violations_with_empty_parameters[violation] {
-	constraints := [fixture_constraints.forbid_external_ip_default]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-# Confirm that no violation is found with empty parameters.
-test_external_ip_default {
-	found_violations := violations_with_empty_parameters
-
-	count(found_violations) = 0
-}
-
-allowlist_violations[violation] {
-	constraints := [fixture_constraints.forbid_external_ip_allowlist]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-# Confirm only a single violation was found (allowlist constraint)
-test_external_ip_allowlist_violates_one {
-	found_violations := allowlist_violations
-
-	count(found_violations) = 1
-
-	violation := found_violations[_]
-	resource_name := "//compute.googleapis.com/projects/test-project/zones/us-east1-b/instances/vm-external-ip"
-
-	is_string(violation.msg)
-	is_object(violation.details)
-}
-
-no_violation_due_to_allowlist[violation] {
-	constraints := [fixture_constraints.forbid_external_ip_allowlist_all]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-# Confirm no violation when both VMs with exernal IP are allowlisted.
-test_external_ip_allowlist_all {
-	found_violations := no_violation_due_to_allowlist
-
-	count(found_violations) = 0
-}
-
-denylist_violations[violation] {
-	constraints := [fixture_constraints.forbid_external_ip_denylist]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-test_external_ip_denylist_violates_one {
-	found_violations := denylist_violations
-
-	count(found_violations) = 1
-}
-
-two_denylist_violations[violation] {
-	constraints := [fixture_constraints.forbid_external_ip_denylist_all]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-# Confirm we get 2 violations when both VMs with external IP are denylisted.
-test_external_ip_denylist_all {
-	found_violations := two_denylist_violations
-
-	count(found_violations) = 2
-}
-
-test_denylist_violations_regex {
-	constraints := [fixture_constraints.forbid_external_ip_regex_denylist_all]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	count(found_violations) == 2
-}
-
-test_allowlist_violations_regex {
-	constraints := [fixture_constraints.forbid_external_ip_regex_allowlist_all]
-
-	found_violations := find_violations with data.instances as fixture_instances
-		 with data.test_constraints as constraints
-
-	count(found_violations) == 0
-}
-
-test_instance_name_targeted_allowlist {
-	not instance_name_targeted("//compute/vm1", ["//compute/vm.*", "//compute/nomatch"], "allowlist", "regex")
-	not instance_name_targeted("//compute/vm1", ["//compute/vm1", "//compute/nomatch"], "allowlist", "exact")
-}
-
-test_instance_name_targeted_allowlist_nomatch {
-	instance_name_targeted("//compute/vm1", ["//compute/nomatch1", "//compute/nomatch2"], "allowlist", "regex")
-	instance_name_targeted("//compute/vm1", ["//compute/nomatch1", "//compute/nomatch2"], "allowlist", "exact")
-}
-
-test_instance_name_targeted_denylist {
-	instance_name_targeted("//compute/vm1", ["//compute/vm.*", "//compute/nomatch"], "denylist", "regex")
-	instance_name_targeted("//compute/vm1", ["//compute/vm1", "//compute/nomatch"], "denylist", "exact")
+#3. One instance with public ip
+test_vm_external_ip_compute_instance_violations {
+	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
+	test_utils.check_test_violations_count(fixture_compute_instance_violation, [fixture_constraints], template_name, 1)
 }

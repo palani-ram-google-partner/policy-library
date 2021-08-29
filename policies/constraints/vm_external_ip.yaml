@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,10 +15,21 @@
 apiVersion: constraints.gatekeeper.sh/v1alpha1
 kind: GCPComputeExternalIpAccessConstraintV2
 metadata:
-  name: forbid_external_api_allowlist
+  name: forbid_external_ip
+  annotations:
+    # This constraint is not certified by CIS.
+    bundles.validator.forsetisecurity.org/cis-v1.1: 4.09
+    description: Checks if Compute Engine instances don't have public IPs.
 spec:
   severity: high
   parameters:
-    mode: "allowlist"
+    # modes can be [allowlist, denylist]
+    mode: allowlist
+    # match_mode can be [exact, regex], default is exact.
+    match_mode: regex
     instances:
-      - //compute.googleapis.com/projects/test-project/zones/us-east1-b/instances/vm-external-ip-two
+      # regex example:
+    - //compute.googleapis.com/projects/test-project2/.*
+      # exact match example:
+    - //compute.googleapis.com/projects/test-project/zones/us-east1-b/instances/vm-external-ip
+
