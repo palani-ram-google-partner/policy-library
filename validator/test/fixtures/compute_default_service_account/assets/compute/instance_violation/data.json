@@ -71,9 +71,9 @@
         },
         "serviceAccounts": [
           {
-            "email": "default",
+            "email": "66666666666-compute@developer.gserviceaccount.com",
             "scopes": [
-              "https://www.googleapis.com/auth/cloud-platform"
+              "https://www.googleapis.com/auth/cloud-platform "
             ]
           }
         ],

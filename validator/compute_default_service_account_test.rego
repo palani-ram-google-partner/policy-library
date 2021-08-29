@@ -25,8 +25,7 @@ import data.test.fixtures.compute_default_service_account.assets.compute.instanc
 import data.test.fixtures.compute_default_service_account.assets.compute.no_instances as fixture_compute_no_instance
 
 # Importing the test constraint
-import data.test.fixtures.compute_default_service_account.constraints.check_account_only as fixture_constraints
-import data.test.fixtures.compute_default_service_account.constraints.check_full_scope as fixture_constraints_full_scope
+import data.test.fixtures.compute_default_service_account.constraints as fixture_constraints
 
 template_name := "GCPComputeDefaultServiceAccountConstraintV1"
 
@@ -49,43 +48,8 @@ test_default_service_account_compute_instance_no_violations {
 #3. One instance with default service account
 test_default_service_account_compute_instance_violations {
 	expected_resource_names := {"//compute.googleapis.com/projects/prj-dev-palani-ram/zones/us-central1-f/instances/pals-jumphost"}
-	test_utils.check_test_violations_count(fixture_compute_instance_violation, [fixture_constraints_full_scope], template_name, 1)
-	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints_full_scope], template_name, expected_resource_names)
-	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints_full_scope], template_name)
+	test_utils.check_test_violations_count(fixture_compute_instance_violation, [fixture_constraints], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_compute_instance_violation, [fixture_constraints], template_name, expected_resource_names)
+	test_utils.check_test_violations_signature(fixture_compute_instance_violation, [fixture_constraints], template_name)
 }
 
-#find_violations[violation] {
-#	asset := data.assets[_]
-#	constraint := data.test_constraints[_]
-#	issues := deny with input.asset as asset with input.constraint as constraint
-#	total_issues := count(issues)
-#	violation := issues[_]
-#}
-#
-#violations_check_account_only[violation] {
-#	constraints := [fixture_constraints.checkaccountonly]
-#	found_violations := find_violations with data.assets as fixture_assets
-#		 with data.test_constraints as constraints
-#
-#	violation := found_violations[_]
-#}
-#
-#test_violations_check_account_only {
-#	found_violations := violations_check_account_only
-#
-#	count(found_violations) == 2
-#}
-#
-#violations_check_full_scope[violation] {
-#	constraints := [fixture_constraints.checkfullscope]
-#	found_violations := find_violations with data.assets as fixture_assets
-#		 with data.test_constraints as constraints
-#
-#	violation := found_violations[_]
-#}
-#
-#test_violations_check_full_scope {
-#	found_violations := violations_check_full_scope
-#
-#	count(found_violations) == 1
-#}
