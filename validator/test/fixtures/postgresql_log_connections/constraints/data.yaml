@@ -13,11 +13,11 @@
 # limitations under the License.
 #
 apiVersion: constraints.gatekeeper.sh/v1alpha1
-kind: GCPPostgreSQLCheckpointsConstraintV1
+kind: GCPPostgreSQLConnectionsConstraintV1
 metadata:
-  name:  postgresql-log-checkpoints-v1
+  name:  postgresql_log_connections
   annotations:
-    description: Ensure that the 'log_checkpoints' database flag for Cloud SQL PostgreSQL instance is set to 'on'
+    description: Ensure that the 'log_connections' database flag for Cloud SQL PostgreSQL instance is set to 'on'
 spec:
   severity: high
   parameters: {}
