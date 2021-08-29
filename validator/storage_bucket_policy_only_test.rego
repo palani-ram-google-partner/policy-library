@@ -1,5 +1,5 @@
 #
-# Copyright 2018 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,27 +16,34 @@
 
 package templates.gcp.GCPStorageBucketPolicyOnlyConstraintV1
 
-resources_in_violation[resource] {
-	asset := data.test.fixtures.storage_bucket_policy_only.assets[_]
-	constraint := data.test.fixtures.storage_bucket_policy_only.constraints.require_bucket_policy_only
-	issues := deny with input.asset as asset
-		 with input.constraint as constraint
+template_name := "GCPStorageBucketPolicyOnlyConstraintV1"
 
-	resource := issues[_].details.resource
-}
+# Importing the test data
+import data.test.fixtures.storage_bucket_policy_only.assets as fixture_assets
+
+# Importing the test constraints
+import data.test.fixtures.storage_bucket_policy_only.constraints.require_bucket_policy_only as fixture_constraints
+
+# Import test utils
+import data.validator.test_utils as test_utils
 
 test_storage_bucket_policy_only_enabled {
-	not resources_in_violation["//storage.googleapis.com/my-storage-bucket-with-bucketpolicyonly"]
+	expected_resource_names := {"//storage.googleapis.com/my-storage-bucket-with-bucketpolicyonly"}
+	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
 
 test_storage_uniform_bucket_level_access_enabled {
-	not resources_in_violation["//storage.googleapis.com/my-storage-bucketwithuniformbucketlevelaccess"]
+	expected_resource_names := {"//storage.googleapis.com/my-storage-bucketwithuniformbucketlevelaccess"}
+	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
 
 test_storage_bucket_policy_only_violations_no_data {
-	resources_in_violation["//storage.googleapis.com/my-storage-bucket-with-no-bucketpolicyonly-data"]
+	expected_resource_names := {"//storage.googleapis.com/my-storage-bucket-with-no-bucketpolicyonly-data"}
+	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
 
 test_storage_bucket_policy_only_violations_null_data {
-	resources_in_violation["//storage.googleapis.com/my-storage-bucket-with-null-bucketpolicyonly"]
+	expected_resource_names := {"//storage.googleapis.com/my-storage-bucket-with-null-bucketpolicyonly"}
+	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
+
