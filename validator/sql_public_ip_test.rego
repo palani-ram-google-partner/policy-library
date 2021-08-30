@@ -1,5 +1,5 @@
 #
-# Copyright 2018 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,21 +16,18 @@
 
 package templates.gcp.GCPSQLPublicIpConstraintV1
 
-all_violations[violation] {
-	resource := data.test.fixtures.sql_public_ip.assets[_]
-	constraint := data.test.fixtures.sql_public_ip.constraints
+import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
 
-	issues := deny with input.asset as resource
+import data.test.fixtures.sql_public_ip.assets as fixture_violation
+import data.test.fixtures.sql_public_ip.constraints as fixture_constraints
 
-	violation := issues[_]
+template_name := "GCPSQLPublicIpConstraintV1"
+
+test_sql_public_ip_violations {
+	expected_resource_names := {"//cloudsql.googleapis.com/projects/test-project/instances/public-sql"}
+	test_utils.check_test_violations_count(fixture_violation, [fixture_constraints], template_name, 3)
 }
 
-# Confirm total violations count
-test_sql_public_ip_violations_count {
-	count(all_violations) == 3
-}
 
-test_sql_public_ip_violations_basic {
-	violation := all_violations[_]
-	violation.details.resource == "//cloudsql.googleapis.com/projects/test-project/instances/public-sql"
-}
+
