@@ -1,5 +1,5 @@
 #
-# Copyright 2018 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,25 +16,20 @@
 
 package templates.gcp.GCPDNSSECConstraintV1
 
-all_violations[violation] {
-	resource := data.test.fixtures.dnssec.assets[_]
-	constraint := data.test.fixtures.dnssec.constraints.require_dnssec
+import data.test.fixtures.dnssec.assets as fixture_assets
+import data.test.fixtures.dnssec.constraints.require_dnssec as fixture_constraints
 
-	issues := deny with input.asset as resource
-		 with input.constraint as constraint
+import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
 
-	violation := issues[_]
-}
+template_name := "GCPDNSSECConstraintV1"
 
-# Confirm total violations count
-test_dnssec_violations_count {
-	count(all_violations) == 2
-}
-
-test_dnssec_violations_basic {
-	violation_resources := {r | r = all_violations[_].details.resource}
-	violation_resources == {
-		"//dns.googleapis.com/projects/186783260185/managedZones/wrong-off",
-		"//dns.googleapis.com/projects/186783260185/managedZones/wrong-transfer",
+test_dnssec_violations {
+	expected_resource_names := {
+	"//dns.googleapis.com/projects/186783260185/managedZones/wrong-off",
+	"//dns.googleapis.com/projects/186783260185/managedZones/wrong-transfer",
 	}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints], template_name, 2)
+	test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
+
