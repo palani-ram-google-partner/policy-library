@@ -26,10 +26,10 @@ template_name := "GCPDNSSECConstraintV1"
 
 test_dnssec_violations {
 	expected_resource_names := {
-	"//dns.googleapis.com/projects/186783260185/managedZones/wrong-off",
-	"//dns.googleapis.com/projects/186783260185/managedZones/wrong-transfer",
+		"//dns.googleapis.com/projects/186783260185/managedZones/wrong-off",
+		"//dns.googleapis.com/projects/186783260185/managedZones/wrong-transfer",
 	}
+
 	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints], template_name, 2)
 	test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
-
