@@ -32,7 +32,5 @@ test_private_google_access_disabled {
 
 test_private_google_access_enabled {
 	expected_resource_names := {"//compute.googleapis.com/projects/fake-project/global/networks/test-network"}
-
-	#	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints], template_name, 0)
 	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
