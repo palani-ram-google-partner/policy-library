@@ -1,5 +1,5 @@
 #
-# Copyright 2018 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,50 +16,34 @@
 
 package templates.gcp.GCPDNSSECPreventRSASHA1ConstraintV1
 
-ksk_violations[violation] {
-	resource := data.test.fixtures.dnssec_prevent_rsasha1.assets[_]
-	constraint := data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_ksk
+import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
 
-	issues := deny with input.asset as resource
-		 with input.constraint as constraint
+import data.test.fixtures.dnssec_prevent_rsasha1.assets as fixture_assets
+import data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_ksk as fixture_ksk
+import data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_zsk as fixture_zsk
+import data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_all as fixture_all
 
-	violation := issues[_]
+template_name := "GCPDNSSECPreventRSASHA1ConstraintV1"
+
+test_dnssec_prevent_rsasha1_ksk_violations {
+	expected_resource_names := {"//dns.googleapis.com/projects/186783260185/managedZones/bad-key-signing"}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_ksk], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_assets, [fixture_ksk], template_name, expected_resource_names)
 }
 
-zsk_violations[violation] {
-	resource := data.test.fixtures.dnssec_prevent_rsasha1.assets[_]
-	constraint := data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_zsk
-
-	issues := deny with input.asset as resource
-		 with input.constraint as constraint
-
-	violation := issues[_]
+test_dnssec_prevent_rsasha1_zsk_violations {
+	expected_resource_names := {"//dns.googleapis.com/projects/186783260185/managedZones/bad-zone-signing"}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_zsk], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_assets, [fixture_zsk], template_name, expected_resource_names)
 }
 
-all_violations[violation] {
-	resource := data.test.fixtures.dnssec_prevent_rsasha1.assets[_]
-	constraint := data.test.fixtures.dnssec_prevent_rsasha1.constraints.dnssec_prevent_rsasha1_all
-
-	issues := deny with input.asset as resource
-		 with input.constraint as constraint
-
-	violation := issues[_]
+test_dnssec_prevent_rsasha1_all_violations {
+	expected_resource_names := {
+	   "//dns.googleapis.com/projects/186783260185/managedZones/bad-zone-signing",
+	   "//dns.googleapis.com/projects/186783260185/managedZones/bad-key-signing"
+	}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_all], template_name, 2)
+	test_utils.check_test_violations_resources(fixture_assets, [fixture_all], template_name, expected_resource_names)
 }
 
-test_dnssec_violations_zsk {
-	count(zsk_violations) == 1
-	violation_resources := {r | r = zsk_violations[_].details.resource}
-	violation_resources == {"//dns.googleapis.com/projects/186783260185/managedZones/bad-zone-signing"}
-}
-
-test_dnssec_violations_ksk {
-	count(ksk_violations) == 1
-	violation_resources := {r | r = ksk_violations[_].details.resource}
-	violation_resources == {"//dns.googleapis.com/projects/186783260185/managedZones/bad-key-signing"}
-}
-
-test_dnssec_violations_all {
-	count(all_violations) == 2
-	violation_resources := {r | r = all_violations[_].details.resource}
-	violation_resources == {"//dns.googleapis.com/projects/186783260185/managedZones/bad-key-signing", "//dns.googleapis.com/projects/186783260185/managedZones/bad-zone-signing"}
-}
