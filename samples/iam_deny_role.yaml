@@ -5,7 +5,7 @@ metadata:
   annotations:
     description: Ban any users from being granted Service Account User access
     # This constraint is not certified by CIS.
-    bundles.validator.forsetisecurity.org/cis-v1.1: 1.05
+    bundles.validator.forsetisecurity.org/cis-v1.1: 1.06
 spec:
   severity: high
   match:
