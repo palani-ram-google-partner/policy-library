@@ -1,5 +1,5 @@
 #
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ kind: GCPSQLBackupConstraintV1
 metadata:
   name: gcp-sql-backup-no-exemptions
   annotations:
+    bundles.validator.forsetisecurity.org/cis-v1.1: 6.7
     description: Checks that Cloud SQL backups are enabled.
 spec:
   severity: high

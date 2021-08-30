@@ -1,5 +1,5 @@
 #
-# Copyright 2019 Google LLC 
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,51 +16,21 @@
 
 package templates.gcp.GCPSQLBackupConstraintV1
 
+import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
+
 import data.test.fixtures.sql_backup.assets as fixture_assets
-import data.test.fixtures.sql_backup.constraints as fixture_constraints
+import data.test.fixtures.sql_backup.constraints.exemption as fixture_constraints_exemptions
+import data.test.fixtures.sql_backup.constraints.no_parameter as fixture_constraints_no_parameter
 
-find_violations[violation] {
-	asset := data.test_assets[_]
-	constraint := data.test_constraints[_]
-	issues := deny with input.asset as asset with input.constraint as constraint
-	violation := issues[_]
+template_name := "GCPSQLBackupConstraintV1"
+
+test_sql_backup_no_parameter {
+	expected_resource_names := {"//cloudsql.googleapis.com/projects/brunore-db-test/instances/mysqlv2-nomaintenance"}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints_no_parameter], template_name, 4)
 }
 
-no_parameter[violation] {
-	constraints := [fixture_constraints.no_parameter]
-	found_violations := find_violations with data.test_assets as fixture_assets
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-test_no_parameter_count {
-	count(no_parameter) == 4
-}
-
-test_no_parameter_list {
-	found_violations := no_parameter
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-db-test/instances/mysqlv2-nomaintenance"
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-db-test/instances/postgres-nomaintenance"
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-cai-test/instances/brunore-mon-3pm"
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-cai-test/instances/brunore-sun-3am"
-}
-
-exemption[violation] {
-	constraints := [fixture_constraints.exemption]
-	found_violations := find_violations with data.test_assets as fixture_assets
-		 with data.test_constraints as constraints
-
-	violation := found_violations[_]
-}
-
-test_exemption_count {
-	count(exemption) == 3
-}
-
-test_exemption_list {
-	found_violations := exemption
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-db-test/instances/postgres-nomaintenance"
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-cai-test/instances/brunore-mon-3pm"
-	found_violations[_].details.resource == "//cloudsql.googleapis.com/projects/brunore-cai-test/instances/brunore-sun-3am"
+test_sql_backup_exemption {
+	expected_resource_names := {"//cloudsql.googleapis.com/projects/brunore-db-test/instances/postgres-nomaintenance"}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints_exemptions], template_name, 3)
 }
