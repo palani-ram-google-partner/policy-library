@@ -1,5 +1,5 @@
 #
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,34 +17,22 @@
 package templates.gcp.GCPNetworkRestrictDefaultV1
 
 import data.validator.gcp.lib as lib
+import data.validator.test_utils as test_utils
 
-all_violations[violation] {
-	resource := data.test.fixtures.network_restrict_default.assets[_]
-	constraint := data.test.fixtures.network_restrict_default.constraints
+import data.test.fixtures.network_restrict_default.assets as fixture_assets
+import data.test.fixtures.network_restrict_default.constraints as fixture_constraints
 
-	issues := deny with input.asset as resource
-		 with input.constraint as constraint
-		 with data.inventory as data.test.fixtures.network_restrict_default.assets
+template_name := "GCPNetworkRestrictDefaultV1"
 
-	violation := issues[_]
+test_private_google_access_disabled {
+	expected_resource_names := {"//compute.googleapis.com/projects/fake-project/global/networks/default"}
+	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints], template_name, 1)
+	test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
 
 test_private_google_access_enabled {
-	violation := all_violations[_]
-	resource_names := {x | x = violation.details.resource}
-	not resource_names["//compute.googleapis.com/projects/fake-project/global/networks/test-network"]
-}
+	expected_resource_names := {"//compute.googleapis.com/projects/fake-project/global/networks/test-network"}
 
-test_private_google_access_disabled {
-	count(all_violations) == 1
-
-	resource_names := {x | x = all_violations[_].details.resource}
-
-	expected_resource_name := {"//compute.googleapis.com/projects/fake-project/global/networks/default"}
-
-	resource_names == expected_resource_name
-
-	violation := all_violations[_]
-	is_string(violation.msg)
-	is_object(violation.details)
+	#	test_utils.check_test_violations_count(fixture_assets, [fixture_constraints], template_name, 0)
+	not test_utils.check_test_violations_resources(fixture_assets, [fixture_constraints], template_name, expected_resource_names)
 }
