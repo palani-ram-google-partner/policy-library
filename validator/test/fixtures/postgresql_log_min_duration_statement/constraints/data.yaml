@@ -1,0 +1,12 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPPostgreSQLMinDurationStatementConstraintV1
+metadata:
+  name:  postgresql_log_min_duration_statement
+  annotations:
+    description: checks if the 'log_min_duration_statement' database flag for Cloud SQL PostgreSQL instance is set to '-1'
+spec:
+  severity: high
+  match:
+      gcp:
+        target: ["organization/*"]
+  parameters: {}
