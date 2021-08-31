@@ -1,0 +1,55 @@
+[
+  {
+	"name": "//cloudsql.googleapis.com/projects/prj-dev-palani-ram/instances/tf-mysql-ha-80dabfdb",
+	"asset_type": "sqladmin.googleapis.com/Instance",
+	"ancestry_path": "organization/614830067722/folder/561421552790/project/prj-dev-palani-ram",
+	"resource": {
+		"version": "v1beta4",
+		"discovery_document_uri": "https://www.googleapis.com/discovery/v1/apis/sqladmin/v1beta4/rest",
+		"discovery_name": "DatabaseInstance",
+		"parent": "//cloudresourcemanager.googleapis.com/projects/prj-dev-palani-ram",
+		"data": {
+			"databaseVersion": "MYSQL_8_0",
+			"name": "tf-mysql-ha-80dabfdb",
+			"project": "prj-dev-palani-ram",
+			"region": "us-central1",
+			"settings": {
+
+	"activationPolicy": "ALWAYS",
+				"availabilityType": "REGIONAL",
+				"backupConfiguration": {
+					"enabled": true,
+					"startTime": "20:55"
+				},
+				"dataDiskSizeGb": "10",
+				"dataDiskType": "PD_SSD",
+				"databaseFlags": [],
+				"ipConfiguration": {
+					"authorizedNetworks": [{
+						"name": "public-cidr",
+						"value": "0.0.0.0/0"
+					}],
+					"ipv4Enabled": true,
+					"requireSsl": true
+				},
+				"locationPreference": {
+					"zone": "us-central1-c"
+				},
+				"maintenanceWindow": {
+					"day": 7,
+					"hour": 12,
+					"updateTrack": "stable"
+				},
+				"pricingPlan": "PER_USE",
+				"replicationType": "SYNCHRONOUS",
+				"settingsVersion": "36",
+				"storageAutoResize": true,
+				"tier": "db-custom-2-13312",
+				"userLabels": {
+					"foo": "bar"
+				}
+			}
+		}
+	}
+  }
+]

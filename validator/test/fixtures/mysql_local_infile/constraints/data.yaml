@@ -1,0 +1,12 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPMySQLLocalInfileConstraintV1
+metadata:
+  name:  mysql-local-infile
+  annotations:
+    description: checks if the 'local-infile' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+spec:
+  severity: high
+  match:
+      gcp:
+        target: ["organization/*"]
+  parameters: {}
