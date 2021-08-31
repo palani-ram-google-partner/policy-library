@@ -1,0 +1,12 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPMsSQLCrossDBOwnershipConstraintV1
+metadata:
+  name:  mssql_cross_db_ownership
+  annotations:
+    description: checks if the 'cross db ownership chaining' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+spec:
+  severity: high
+  match:
+      gcp:
+        target: ["organization/*"]
+  parameters: {}
