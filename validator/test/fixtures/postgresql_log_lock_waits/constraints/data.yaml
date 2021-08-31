@@ -1,0 +1,12 @@
+apiVersion: constraints.gatekeeper.sh/v1alpha1
+kind: GCPPostgreSQLLockWaitsConstraintV1
+metadata:
+  name:  postgresql_log_lock_waits
+  annotations:
+    description: checks if the 'log_lock_waits' database flag for Cloud SQL PostgreSQL instance is set to 'on'
+spec:
+  severity: high
+  match:
+      gcp:
+        target: ["organization/*"]
+  parameters: {}
