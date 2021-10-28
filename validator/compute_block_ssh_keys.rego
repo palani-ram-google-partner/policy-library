@@ -37,7 +37,7 @@ deny[{
 }
 
 # All other cases for metadata items are violations
-default metadata_blocks_project_keys(meta) = false
+#default metadata_blocks_project_keys(meta) = false
 
 # check for block-project-ssh-keys under metadata items - no violation
 metadata_blocks_project_keys(meta) {
